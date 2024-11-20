@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes
-app.use("/api/users", userRoutes);
+app.use("/api", userRoutes);
 
 // Default route
 app.get("/", (req, res) => {
