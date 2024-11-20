@@ -37,7 +37,7 @@ export const getUserById = async (id) => {
 };
 
 // Update a user's email
-export const updateUser = async (id, email) => {
+export const updateUserEmail = async (id, email) => {
   try {
     const result = await pool.query(
       "UPDATE users SET email = $1 WHERE id = $2 RETURNING *",
