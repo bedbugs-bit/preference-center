@@ -1,7 +1,16 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import dotenv from "dotenv";    
+import dotenv from "dotenv"; 
+
+//cron job
+import cron from 'node-cron';
+import pool from "./src/db/index.js";
+
+cron.schedule('0 0 * * *', async () => { // Runs daily at midnight
+  console.log('Cleaning expired consents...');
+  await pool.query('DELETE FROM events WHERE expires_at < NOW()');
+});
 
 // routes
 import userRoutes from "./src/routes/userRoutes.js"
