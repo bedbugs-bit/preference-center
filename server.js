@@ -5,8 +5,12 @@ import dotenv from "dotenv";
 import { Server } from "socket.io";
 import http from "http";
 import { register, httpRequestDuration } from "./src/utils/metrics.js";
+import { errorHandler } from "./src/middleware/errorHandler.js";
 
-//cron job
+// import the api limiter
+import { apiLimiter } from "./src/middleware/rateLimiter.js";
+
+// cron job
 import cron from "node-cron";
 import pool from "./src/db/index.js";
 
@@ -22,16 +26,11 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-
-cron.schedule("0 0 * * *", async () => {
-  // Runs daily at midnight
-  console.log("Cleaning expired consents...");
-  await pool.query("DELETE FROM events WHERE expires_at < NOW()");
-});
+app.use(errorHandler);
 
 // Routes
-app.use("/api/users", userRoutes);
-app.use("/api/events", eventRoutes);
+app.use("/api/users", userRoutes, apiLimiter);
+app.use("/api/events", eventRoutes, apiLimiter);
 
 // Default route
 app.get("/", (req, res) => {
@@ -74,6 +73,13 @@ io.on("connection", (socket) => {
 export const notifyConsentUpdate = (userId, consentId, enabled) => {
   io.emit("consent_update", { userId, consentId, enabled });
 };
+
+// Cron scheduler
+cron.schedule("0 0 * * *", async () => {
+  // Runs daily at midnight
+  console.log("Cleaning expired consents...");
+  await pool.query("DELETE FROM events WHERE expires_at < NOW()");
+});
 
 // Start the server
 app.listen(port, () => {
