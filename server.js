@@ -6,6 +6,7 @@ import { Server } from "socket.io";
 import http from "http";
 import { register, httpRequestDuration } from "./src/utils/metrics.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
+import { requestLogger } from "./src/middleware/requestLogger.js";
 
 // import helmet to secure headers
 import helmet from "helmet";
@@ -29,7 +30,8 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-app.use(helmet());  //  helmet middleware to secure headers
+app.use(helmet()); //  helmet middleware to secure headers
+app.use(requestLogger); // Request logger middleware to log all requests
 
 // Error handler is the last middleware
 app.use(errorHandler);
@@ -91,6 +93,5 @@ cron.schedule("0 0 * * *", async () => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
 
 export default app;
