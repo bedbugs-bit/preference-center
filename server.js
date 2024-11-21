@@ -85,3 +85,6 @@ cron.schedule("0 0 * * *", async () => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+
+export default app;
