@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 
 // routes
 import userRoutes from "./src/routes/userRoutes.js"
+import eventRoutes from './src/routes/eventRoutes.js';
+
 
 dotenv.config();
 
@@ -17,7 +19,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes
-app.use("/api", userRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/events", eventRoutes);
 
 // Default route
 app.get("/", (req, res) => {

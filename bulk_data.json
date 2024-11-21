@@ -1,0 +1,27 @@
+{
+    "users": [
+      { "email": "john.doe@example.com" },
+      { "email": "jane.smith@example.com" },
+      { "email": "alice.williams@example.com" },
+      { "email": "bob.brown@example.com" },
+      { "email": "charlie.jones@example.com" },
+      { "email": "david.taylor@example.com" },
+      { "email": "eva.moore@example.com" },
+      { "email": "frank.thomas@example.com" },
+      { "email": "grace.harris@example.com" },
+      { "email": "harry.walker@example.com" }
+    ],
+    "events": [
+      { "userId": 1, "consentId": "email_notifications", "enabled": true },
+      { "userId": 2, "consentId": "sms_notifications", "enabled": false },
+      { "userId": 3, "consentId": "email_notifications", "enabled": true },
+      { "userId": 4, "consentId": "sms_notifications", "enabled": true },
+      { "userId": 5, "consentId": "email_notifications", "enabled": false },
+      { "userId": 6, "consentId": "sms_notifications", "enabled": true },
+      { "userId": 7, "consentId": "email_notifications", "enabled": true },
+      { "userId": 8, "consentId": "sms_notifications", "enabled": false },
+      { "userId": 9, "consentId": "email_notifications", "enabled": true },
+      { "userId": 10, "consentId": "sms_notifications", "enabled": false }
+    ]
+  }
+  

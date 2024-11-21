@@ -39,3 +39,16 @@ export const getUserConsentState = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 };
+
+export const getFilteredEvents = async (req, res) => {
+  const { userId } = req.params;
+  const { consentId } = req.query;
+
+  try {
+    const events = await EventModel.getFilteredEvents(userId, consentId);
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ error: 'Database error' });
+  }
+};
+

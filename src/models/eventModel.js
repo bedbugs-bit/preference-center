@@ -33,3 +33,14 @@ export const getUserConsentState = async (userId) => {
   });
   return consentState;
 };
+
+export const getFilteredEvents = async (userId, consentId) => {
+  const query = `
+    SELECT * FROM events
+    WHERE user_id = $1 AND consent_id = $2
+    ORDER BY created_at ASC
+  `;
+  const result = await pool.query(query, [userId, consentId]);
+  return result.rows;
+};
+
