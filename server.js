@@ -89,9 +89,15 @@ cron.schedule("0 0 * * *", async () => {
   await pool.query("DELETE FROM events WHERE expires_at < NOW()");
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+// Start the server only when not in a test environment
+// Jest tries to run tests in parallel, and each test file attempts to start
+// the server on the same port (3000).
+// Solution: Use supertest without explicitly starting the server
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
+}
 
 export default app;

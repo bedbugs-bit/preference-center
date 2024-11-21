@@ -1,0 +1,46 @@
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"error","message":"Error updating consent: UserModel is not defined","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"error","message":"Error updating consent: UserModel is not defined","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"error","message":"Error updating consent: UserModel is not defined","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"Audit logged successfully: User 30, Action: CONSENT_UPDATED, Details: {\"consentId\":\"email_notifications\",\"enabled\":true}","service":"user-service"}
+{"level":"info","message":"Consent updated: User 30, Consent email_notifications, Enabled true","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"Audit logged successfully: User 34, Action: CONSENT_UPDATED, Details: {\"consentId\":\"email_notifications\",\"enabled\":true}","service":"user-service"}
+{"level":"info","message":"Consent updated: User 34, Consent email_notifications, Enabled true","service":"user-service"}
+{"level":"info","message":"POST /api/users","service":"user-service"}
+{"level":"info","message":"POST /api/events","service":"user-service"}
