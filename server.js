@@ -7,6 +7,9 @@ import http from "http";
 import { register, httpRequestDuration } from "./src/utils/metrics.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
 
+// import helmet to secure headers
+import helmet from "helmet";
+
 // import the api limiter
 import { apiLimiter } from "./src/middleware/rateLimiter.js";
 
@@ -26,6 +29,9 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+app.use(helmet());  //  helmet middleware to secure headers
+
+// Error handler is the last middleware
 app.use(errorHandler);
 
 // Routes
