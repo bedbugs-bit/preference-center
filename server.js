@@ -4,16 +4,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
 import http from "http";
+import { register, httpRequestDuration } from "./src/utils/metrics.js";
 
 //cron job
 import cron from "node-cron";
 import pool from "./src/db/index.js";
-
-cron.schedule("0 0 * * *", async () => {
-  // Runs daily at midnight
-  console.log("Cleaning expired consents...");
-  await pool.query("DELETE FROM events WHERE expires_at < NOW()");
-});
 
 // routes
 import userRoutes from "./src/routes/userRoutes.js";
@@ -28,6 +23,12 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
+cron.schedule("0 0 * * *", async () => {
+  // Runs daily at midnight
+  console.log("Cleaning expired consents...");
+  await pool.query("DELETE FROM events WHERE expires_at < NOW()");
+});
+
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
@@ -35,6 +36,24 @@ app.use("/api/events", eventRoutes);
 // Default route
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to the preference Center API!");
+});
+
+// Metrics
+app.use((req, res, next) => {
+  const end = httpRequestDuration.startTimer();
+  res.on("finish", () => {
+    end({
+      method: req.method,
+      route: req.route?.path || req.path,
+      status_code: res.statusCode,
+    });
+  });
+  next();
+});
+
+app.get("/metrics", async (req, res) => {
+  res.set("Content-Type", register.contentType);
+  res.end(await register.metrics());
 });
 
 // Create a http server
