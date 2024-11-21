@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9010:9010" # Maps container's port 9010 to host's port 9010
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_HOST=localhost # Default to localhost if PostgreSQL is unavailable
+      - POSTGRES_USER=optional_user
+      - POSTGRES_PASSWORD=optional_password
+      - POSTGRES_DB=optional_db
+    command: ["npm", "start"]
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB=app_db
+    ports:
+      - "5432:5432"
+    restart: always
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: always
