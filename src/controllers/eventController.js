@@ -5,6 +5,9 @@ import { logAudit } from "../services/auditService.js";
 import { notifyConsentUpdate } from "../../server.js";
 import logger from "../utils/logger.js";
 
+// verify that the Redis server is running
+// import redisClient from "../utils/redisClient.js";
+
 /**
  * Create a new consent change event
  */
@@ -84,6 +87,36 @@ export const getUserConsentState = async (req, res) => {
     res.status(500).json({ error: "Database error" });
   }
 };
+
+// export const getUserConsentState = async (req, res) => {
+//   const { userId } = req.params;
+
+//   try {
+//     // Check Redis cache
+//     const cachedState = await redisClient.get(`user:${userId}:consentState`);
+//     if (cachedState) {
+//       logger.info(`Cache hit for user ${userId}`);
+//       return res.status(200).json(JSON.parse(cachedState));
+//     }
+
+//     // Fetch from database
+//     const consentState = await EventModel.getUserConsentState(userId);
+
+//     // Cache the result
+//     await redisClient.set(
+//       `user:${userId}:consentState`,
+//       JSON.stringify(consentState),
+//       { EX: 60 * 10 } // Cache for 10 minutes
+//     );
+
+//     res.status(200).json(consentState);
+//   } catch (error) {
+//     logger.error(
+//       `Error fetching consent state for user ${userId}: ${error.message}`
+//     );
+//     res.status(500).json({ error: "Database error" });
+//   }
+// };
 
 /**
  * Get filtered events for a user
