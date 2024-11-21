@@ -1,6 +1,7 @@
 import * as EventModel from "../models/eventModel.js";
 import { addNotificationToQueue } from "../queues/notificationQueue.js";
 import { logAudit } from "../services/auditService.js";
+import { notifyConsentUpdate } from "../../server.js";
 
 // Create a new consent change event
 export const createEvent = async (req, res) => {
@@ -21,7 +22,11 @@ export const createEvent = async (req, res) => {
     const message = `Your consent for ${consentId} has been ${
       enabled ? "enabled" : "disabled"
     }.`;
+
     addNotificationToQueue(user.email, message);
+
+    // Real-time notification
+    notifyConsentUpdate(userId, consentId, enabled);
 
     res.status(201).json(event);
   } catch (error) {

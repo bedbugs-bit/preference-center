@@ -1,6 +1,7 @@
-import { json } from "body-parser";
+import pkg from "body-parser";
 import pool from "../db/index.js";
 
+const { json } = pkg;
 export const logAudit = async (userId, action, details) => {
   try {
     await pool.query(
