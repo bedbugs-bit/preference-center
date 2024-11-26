@@ -46,7 +46,7 @@ export const updateUserEmail = async (id, email) => {
     return result.rows[0];
   } catch (error) {
     console.error(`Error updating the user with id ${id}`, error);
-    return null;
+    throw error;
   }
 };
 

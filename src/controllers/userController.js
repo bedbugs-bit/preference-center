@@ -1,4 +1,5 @@
 import * as UserModel from "../models/userModel.js";
+import pool from "../db/index.js";
 
 // create a new user
 export const createUser = async (req, res) => {
@@ -56,13 +57,22 @@ export const updateUserEmail = async (req, res) => {
   }
 
   try {
-    const user = await UserModel.updateUserEmail(id, email);
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json({ error: "User not found" });
+    // Check if the email already exists
+    const emailCheck = await pool.query(
+      "SELECT id FROM users WHERE email = $1",
+      [email]
+    );
+    if (emailCheck.rowCount > 0) {
+      return res.status(409).json({ error: "Email already exists" });
     }
+
+    const user = await UserModel.updateUserEmail(id, email);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({ message: "Email updated successfully", user });
   } catch (error) {
+    console.error(error);
     if (error.code === "23505") {
       res.status(409).json({ error: "Email already exists" });
     } else {
